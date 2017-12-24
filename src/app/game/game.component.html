@@ -1,0 +1,55 @@
+<div class="game-component">
+
+  <h2 class="game-component__title">Up & Down</h2>
+
+  <button class="game-component__fab" mat-fab (click)="addPlayer()">
+      <mat-icon>add</mat-icon>
+  </button>
+
+  <div class="game-component__msg" *ngIf="players.length == 0">
+    <h3>Aggiungi un giocatore per iniziare.</h3>
+  </div>
+
+  <div *ngIf="players.length > 0" class="game-component__table-container">
+
+    <div class="game-component__game-component__table-row game-component__table-header">
+      <div class="game-component__table-col game-component__table-turns"><strong>Turno</strong></div>
+      <div class="game-component__table-col game-component__table-player" *ngFor="let player of players">{{player.name}}</div>
+    </div>
+
+    <div class="game-component__table-row" *ngFor="let turn of totalTurns; let turnIndex = index; trackBy:trackByIndex;">
+
+      <div class="game-component__table-col game-component__table-turns">
+        <span>{{turn.cards}}</span>
+        <span [className]="[turn.suit.icon]"></span>
+      </div>
+
+      <div class="game-component__table-col" *ngFor="let player of players; let playerIndex = index; trackBy:trackByIndex;">
+
+        <mat-form-field class="game-component__select">
+          <mat-select placeholder="Scommessa" disableRipple [(ngModel)]="totalTurns[turnIndex].odds[playerIndex]" (ngModelChange)="calcPoints(totalTurns[turnIndex], playerIndex)">
+            <mat-option value="{{value}}" *ngFor="let value of oddsValues">{{value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="game-component__select">
+          <mat-select placeholder="Prese" [disabled]="!totalTurns[turnIndex].odds[playerIndex]" [(ngModel)]="totalTurns[turnIndex].results[playerIndex]" (ngModelChange)="calcPoints(totalTurns[turnIndex], playerIndex)">
+            <mat-option value="{{value}}" *ngFor="let value of oddsValues">{{value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="game-component__table-points"><strong>{{totalTurns[turnIndex].points[playerIndex] || "0"}}</strong></div>
+
+      </div>
+
+    </div>
+
+    <div class="game-component__table-row game-component__table-total-container">
+      <div class="game-component__table-col game-component__table-total"><strong>TOTALE</strong></div>
+      <div class="game-component__table-col game-component__table-total-value" *ngFor="let player of players; let playerIndex = index; trackBy:trackByIndex;">
+        <strong>{{totalPoints[playerIndex]}}</strong>
+      </div>
+    </div>
+  </div>
+
+</div>

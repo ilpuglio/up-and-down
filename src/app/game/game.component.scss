@@ -1,0 +1,71 @@
+.game-component {
+
+  &__title {
+    color: #662E9B;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  &__fab {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 1px;
+  }
+  &__msg {
+    padding: 0 10px;
+    color: #EA3546;
+    text-align: center;
+  }
+  &__table-container {
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+  &__table-row {
+    display: block;
+    margin-top: 1px;
+  }
+  &__table-header {
+    color: #EA3546;
+  }
+  &__table-col {
+    display: inline-block;
+    min-width: 200px;
+    max-width: 40%;
+    vertical-align: middle;
+    padding: 0 10px;
+  }
+  &__table-turns, &__table-total {
+    width: 100px;
+    min-width: 0px;
+    text-align: center;
+    padding: 0;
+  }
+  &__table-player {
+    text-align: center;
+  }
+  &__table-points {
+    text-align: center;
+    color: #43BCCD;
+    height: 25px;
+  }
+  &__table-total-container {
+    font-size: 18px;
+    padding: 20px 0;
+    border-top: 1px solid #EA3546;
+  }
+  &__table-total-value {
+    text-align: center;
+    color: #F86624;
+  }
+  &__select {
+    display: block;
+    max-width: 200px;
+  }
+
+  .ico-spades, .ico-clubs {
+    color: black;
+  }
+  .ico-diamonds, .ico-heart {
+    color: red;
+  }
+}
