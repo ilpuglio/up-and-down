@@ -9,21 +9,27 @@ import { AddPlayerDialogComponent } from '../add-player-dialog/add-player-dialog
 })
 export class GameComponent {
 
-  players: Array<any>;
-  startTurn: number;
-  oddsValues: Array<number>;
-  suits: Array<any>;
-  totalTurns: Array<any>;
-  totalPoints: Array<any>;
+  players: Array<any> = [];
+  startTurn: number = 7;
+  currentTurn: number = 0;
+  oddsValues: Array<number> = [];
+  suits: Array<any> = [];
+  totalTurns: Array<any> = [];
+  totalPoints: Array<any> = [];
   playerName: string;
+  dealerSetted: boolean = false;
 
   constructor(
     public dialog: MatDialog
   ) {
 
-    this.players = []
-
-    this.startTurn = 7
+    /* this.players = [{
+      name: "Gianni",
+      dealer: false
+    }, {
+      name: "Helena",
+      dealer: true
+    }]*/
 
     this.suits = [
       {
@@ -42,8 +48,6 @@ export class GameComponent {
     ]
 
     this.oddsValues = Array.apply(null, {length: this.startTurn + 1}).map(Number.call, Number) // [0,1,2,3,4,5,6,7]
-
-    this.totalPoints = [];
     this.totalTurns = this.createTurns()
 
   }
@@ -60,7 +64,8 @@ export class GameComponent {
         odds: [],
         results: [],
         points: [],
-        total: []
+        total: [],
+        oddsSetted: 0
       })
     }
     for (let i = 2; i <= this.startTurn; i++) {
@@ -70,7 +75,8 @@ export class GameComponent {
         odds: [],
         results: [],
         points: [],
-        total: []
+        total: [],
+        oddsSetted: 0
       })
     }
 
@@ -81,20 +87,35 @@ export class GameComponent {
   addPlayer() {
 
     let dialogRef = this.dialog.open(AddPlayerDialogComponent, {
-      data: { playerName: this.playerName }
+      data: { playerName: this.playerName, dealerSetted: this.dealerSetted}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (!result.playerName) return
       this.players.push({
-        name: result.playerName
+        name: result.playerName,
+        dealer: result.dealer
       });
+      if (result.dealer) this.dealerSetted = true;
     });
 
   }
 
   calcPoints(turn, player) {
+
     turn.points[player] = turn.odds[player] == turn.results[player] ? Number(turn.results[player]) + 10 : Number(turn.results[player])
+
+    let cumulativeOdds = 0;
+    turn.odds.forEach((i) => {
+      cumulativeOdds += Number(i) || 0
+    })
+    turn.cumulativeOdds = cumulativeOdds;
+
+    let cumulativeResults = 0;
+    turn.results.forEach((i) => {
+      cumulativeResults += Number(i) || 0
+    })
+    turn.cumulativeResults = cumulativeResults;
 
     let total = 0;
     this.totalTurns.forEach((i) => {
@@ -102,6 +123,23 @@ export class GameComponent {
     })
 
     this.totalPoints[player] = total;
+
+    turn.oddsSetted = turn.odds.filter(i => typeof(i) !== 'undefined').length
+
+  }
+
+  moveDealer() {
+
+    let index = this.players.findIndex(i => i.dealer == true)
+    this.players[index].dealer = false;
+
+    if (index + 1 == this.players.length) {
+      this.players[0].dealer = true
+    } else {
+      this.players[index + 1].dealer = true
+    }
+
+    this.currentTurn++;
 
   }
 

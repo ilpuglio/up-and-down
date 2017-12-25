@@ -1,13 +1,14 @@
 <div class="add-player-dialog">
   <h2 mat-dialog-title>Aggiungi giocatore</h2>
   <div mat-dialog-content>
-    <p>Inserisci il nome del giocatore</p>
+    <div>Inserisci il nome del giocatore</div>
     <mat-form-field class="add-player-dialog__input">
       <input matInput tabindex="1" [(ngModel)]="data.playerName">
     </mat-form-field>
+    <mat-checkbox class="add-player-dialog__checkbox" color="primary" [disabled]="data.dealerSetted" [(ngModel)]="data.dealer">Mazziere</mat-checkbox>
   </div>
   <div mat-dialog-actions class="add-player-dialog__actions">
     <button mat-button color="warn" (click)="onNoClick()">Annulla</button>
-    <button mat-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Conferma</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data">Conferma</button>
   </div>
 </div>

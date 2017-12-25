@@ -1,7 +1,7 @@
 .game-component {
 
   &__title {
-    color: #662E9B;
+    color: #3F51B5;
     text-align: center;
     text-transform: uppercase;
   }
@@ -22,10 +22,20 @@
   }
   &__table-row {
     display: block;
-    margin-top: 1px;
   }
   &__table-header {
     color: #EA3546;
+    padding: 10px 0;
+
+    .game-component__table-player {
+      padding: 10px;
+      border-bottom: 1px solid #EA3546;
+
+      &.dealer {
+        background-color: #EA3546;
+        color: white;
+      }
+    }
   }
   &__table-col {
     display: inline-block;
@@ -34,19 +44,23 @@
     vertical-align: middle;
     padding: 0 10px;
   }
-  &__table-turns, &__table-total {
+  &__table-turns, &__table-total, &__table-confirm {
     width: 100px;
     min-width: 0px;
     text-align: center;
     padding: 0;
+  }
+  &__table-confirm {
+    padding: 0 20px;
   }
   &__table-player {
     text-align: center;
   }
   &__table-points {
     text-align: center;
-    color: #43BCCD;
-    height: 25px;
+    background-color: #43BCCD;
+    color: white;
+    padding: 5px 0;
   }
   &__table-total-container {
     font-size: 18px;
@@ -54,8 +68,9 @@
   }
   &__table-total-value {
     text-align: center;
-    color: #F86624;
-    padding: 20px 0;
+    color: white;
+    background-color: #F86624;
+    padding: 10px 0;
     margin: 0 10px;
     border-top: 1px solid #F86624;
   }

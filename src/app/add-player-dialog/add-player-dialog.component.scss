@@ -1,6 +1,6 @@
 .add-player-dialog {
   h2 {
-    color: #662E9B;
+    color: #3F51B5;
   }
   &__input {
     width: 100%;
@@ -10,6 +10,10 @@
     margin: 0 auto;
     display: block;
     padding: 0;
+  }
+  &__checkbox {
+    display: block;
+    padding-bottom: 20px;
   }
 
 }

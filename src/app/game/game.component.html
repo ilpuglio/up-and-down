@@ -2,7 +2,7 @@
 
   <h2 class="game-component__title">Up & Down</h2>
 
-  <button class="game-component__fab" mat-fab (click)="addPlayer()">
+  <button class="game-component__fab" color="primary" mat-fab (click)="addPlayer()" *ngIf="currentTurn == 0">
       <mat-icon>add</mat-icon>
   </button>
 
@@ -14,7 +14,10 @@
 
     <div class="game-component__game-component__table-row game-component__table-header">
       <div class="game-component__table-col game-component__table-turns"><strong>Turno</strong></div>
-      <div class="game-component__table-col game-component__table-player" *ngFor="let player of players">{{player.name | capitalize}}</div>
+      <div class="game-component__table-col game-component__table-player" [ngClass]="{'dealer': player.dealer && currentTurn < totalTurns.length}" *ngFor="let player of players">
+        <!--mat-icon *ngIf="player.dealer && currentTurn < totalTurns.length">pan_tool</mat-icon-->
+        <span>{{player.name | capitalize}}</span>
+      </div>
     </div>
 
     <div class="game-component__table-row" *ngFor="let turn of totalTurns; let turnIndex = index; trackBy:trackByIndex;">
@@ -25,23 +28,25 @@
       </div>
 
       <div class="game-component__table-col" *ngFor="let player of players; let playerIndex = index; trackBy:trackByIndex;">
-
-        <mat-form-field class="game-component__select">
-          <mat-select placeholder="Scommessa" disableRipple [(ngModel)]="totalTurns[turnIndex].odds[playerIndex]" (ngModelChange)="calcPoints(totalTurns[turnIndex], playerIndex)">
-            <mat-option value="{{i}}" *ngFor="let i of [] | range:turn.cards + 1">{{i}}</mat-option>
+         <mat-form-field class="game-component__select">
+          <mat-select [disabled]="(currentTurn != turnIndex || player.dealer) && turn.oddsSetted < players.length - 1" placeholder="Scommessa" disableRipple [(ngModel)]="totalTurns[turnIndex].odds[playerIndex]" (ngModelChange)="calcPoints(totalTurns[turnIndex], playerIndex)">
+            <mat-option [disabled]="player.dealer && i == turn.cards - turn.cumulativeOdds" value="{{i}}" *ngFor="let i of [] | range:turn.cards + 1">{{i}}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="game-component__select">
-          <mat-select placeholder="Prese" [disabled]="!totalTurns[turnIndex].odds[playerIndex]" [(ngModel)]="totalTurns[turnIndex].results[playerIndex]" (ngModelChange)="calcPoints(totalTurns[turnIndex], playerIndex)">
+          <mat-select placeholder="Prese" [disabled]="currentTurn != turnIndex || !totalTurns[turnIndex].odds[playerIndex]" [(ngModel)]="totalTurns[turnIndex].results[playerIndex]" (ngModelChange)="calcPoints(totalTurns[turnIndex], playerIndex)">
             <mat-option value="{{i}}" *ngFor="let i of [] | range:turn.cards + 1">{{i}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <div class="game-component__table-points"><strong>{{totalTurns[turnIndex].points[playerIndex] || "0"}}</strong></div>
+        <div class="game-component__table-points">{{totalTurns[turnIndex].points[playerIndex] || "0"}}</div>
 
       </div>
 
+      <div class="game-component__table-col game-component__table-confirm" *ngIf="currentTurn == turnIndex && turn.cumulativeResults">
+        <button mat-raised-button color="primary" *ngIf="turn.cumulativeResults == turn.cards" (click)="moveDealer()">Conferma</button>
+      </div>
     </div>
 
     <div class="game-component__table-row game-component__table-total-container">
