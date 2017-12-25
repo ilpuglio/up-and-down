@@ -41,7 +41,7 @@ export class GameComponent {
       }
     ]
 
-    this.oddsValues = Array.apply(null, {length: this.startTurn}).map(Number.call, Number) // [0,1,2,3,4,5,6,7]
+    this.oddsValues = Array.apply(null, {length: this.startTurn + 1}).map(Number.call, Number) // [0,1,2,3,4,5,6,7]
 
     this.totalPoints = [];
     this.totalTurns = this.createTurns()
@@ -85,6 +85,7 @@ export class GameComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (!result.playerName) return
       this.players.push({
         name: result.playerName
       });

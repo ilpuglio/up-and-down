@@ -11,12 +11,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 
 import { AddPlayerDialogComponent } from './add-player-dialog/add-player-dialog.component';
+import { RangePipe } from './range.pipe';
+import { CapitalizePipe } from './capitalize.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    AddPlayerDialogComponent
+    AddPlayerDialogComponent,
+    RangePipe,
+    CapitalizePipe
   ],
   entryComponents: [
     AddPlayerDialogComponent
