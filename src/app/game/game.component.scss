@@ -14,12 +14,18 @@
 
     span {
       position: absolute;
-      opacity: 0.25;
       font-size: 60px;
-      color: #949494;
       top: 50%;
       transform: translateY(-50%);
-      z-index: -1;
+
+      &.ico-arrow-up2 {
+        right: 100%;
+        color: #009049;
+      }
+      &.ico-arrow-down2 {
+        left: 100%;
+        color: #d60038;
+      }
     }
   }
 
