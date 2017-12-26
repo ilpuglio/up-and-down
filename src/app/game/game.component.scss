@@ -1,10 +1,28 @@
 .game-component {
 
+  padding: 5px;
+
+  &__title-wrapper {
+    text-align: center;
+  }
   &__title {
     color: #3F51B5;
-    text-align: center;
+    margin: 20px 0;
+    display: inline-block;
+    position: relative;
     text-transform: uppercase;
+
+    span {
+      position: absolute;
+      opacity: 0.25;
+      font-size: 60px;
+      color: #949494;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: -1;
+    }
   }
+
   &__fab {
     position: fixed;
     right: 10px;
@@ -45,10 +63,23 @@
     padding: 0 10px;
   }
   &__table-turns, &__table-total, &__table-confirm {
-    width: 100px;
+    width: 80px;
     min-width: 0px;
     text-align: center;
     padding: 0;
+  }
+  &__table-turns {
+
+    span[class^="ico"] {
+      font-size: 24px;
+      margin-top: 5px;
+      display: block;
+    }
+
+  }
+  &__table-cards {
+    display: block;
+    font-size: 24px;
   }
   &__table-confirm {
     padding: 0 20px;

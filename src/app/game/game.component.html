@@ -1,6 +1,12 @@
 <div class="game-component">
 
-  <h2 class="game-component__title">Up & Down</h2>
+  <div class="game-component__title-wrapper">
+      <h2 class="game-component__title">
+        <span class="ico-arrow-up2"></span>
+          Up & Down
+        <span class="ico-arrow-down2"></span>
+    </h2>
+  </div>
 
   <button class="game-component__fab" color="primary" mat-fab (click)="addPlayer()" *ngIf="currentTurn == 0">
       <mat-icon>add</mat-icon>
@@ -23,7 +29,7 @@
     <div class="game-component__table-row" *ngFor="let turn of totalTurns; let turnIndex = index; trackBy:trackByIndex;">
 
       <div class="game-component__table-col game-component__table-turns">
-        <span>{{turn.cards}}</span>
+        <span class="game-component__table-cards">{{turn.cards}}</span>
         <span [className]="[turn.suit.icon]"></span>
       </div>
 
