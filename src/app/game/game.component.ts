@@ -101,7 +101,10 @@ export class GameComponent {
 
   calcPoints(turn, player) {
 
-    turn.points[player] = turn.odds[player] == turn.results[player] ? Number(turn.results[player]) + 10 : Number(turn.results[player])
+    // Vecchio modo di calcolare i punti (se indovini prendi 10 + la scommessa, se sbagli prendi quanti volte hai preso)
+    // turn.points[player] = turn.odds[player] == turn.results[player] ? Number(turn.results[player]) + 10 : Number(turn.results[player])
+
+    turn.points[player] = turn.odds[player] == turn.results[player] ? Number(turn.results[player]) + 10 : Number(turn.results[player] - turn.odds[player])
 
     let cumulativeOdds = 0;
     turn.odds.forEach((i) => {
