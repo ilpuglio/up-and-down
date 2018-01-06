@@ -8,7 +8,7 @@ import { GameComponent } from './game/game.component';
 import { MatButtonModule, MatIconModule, MatDialogModule, MatInputModule, MatSelectModule, MatCheckboxModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AddPlayerDialogComponent } from './add-player-dialog/add-player-dialog.component';
 import { RangePipe } from './range.pipe';

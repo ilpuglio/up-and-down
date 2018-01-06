@@ -29,7 +29,7 @@ export class GameComponent {
     }, {
       name: "Helena",
       dealer: true
-    }]*/
+    }] */
 
     this.suits = [
       {
@@ -55,23 +55,21 @@ export class GameComponent {
   createTurns() {
 
     let totalTurns = [];
-    let tempSuits = this.suits.reverse();
+
+    let turnValue = [];
 
     for (let i = this.startTurn; i > 0; i--) {
-      totalTurns.push({
-        cards: i,
-        suit: tempSuits[i % 4],
-        odds: [],
-        results: [],
-        points: [],
-        total: [],
-        oddsSetted: 0
-      })
+        turnValue.push(i)
     }
+
     for (let i = 2; i <= this.startTurn; i++) {
+        turnValue.push(i)
+    }
+
+    for (let i = 0; i < this.startTurn * 2 - 1; i++) {
       totalTurns.push({
-        cards: i,
-        suit: tempSuits[i % 4],
+        cards: turnValue[i],
+        suit: this.suits[i % 4],
         odds: [],
         results: [],
         points: [],
